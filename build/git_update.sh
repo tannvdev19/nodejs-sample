@@ -1,19 +1,18 @@
 #!/bin/bash
 
 VERSION=""
-ENVIROMENT=""
+ENVIRONMENT=${GITHUB_REF##*/}
 
 # get parameters
 while getopts v: flag
 do
   case "${flag}" in
     v) VERSION=${OPTARG};;
-    e) ENVIROMENT=${OPTARG};;
   esac
 done
 
 # echo "ENVIROMENT: $ENVIROMENT";
-echo "ENVIROMENT: ${GITHUB_REF##*/}";
+echo "ENVIRONMENT=$ENVIRONMENT";
 
 # get highest tag number, and add v0.1.0 if doesn't exist
 git fetch --prune --unshallow 2>/dev/null
