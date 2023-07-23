@@ -13,6 +13,8 @@ jobs:
     name: Create version base of previous tag
     runs-on: ubuntu-latest
     steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
       - name: Automatic Tagging of Releases
         id: increment-git-tag
         run: |
