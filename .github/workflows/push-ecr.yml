@@ -8,7 +8,6 @@ on:
 
 permissions: write-all
 
-
 jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
@@ -41,7 +40,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: tannvdev19/sample-nodejs:${{env.NEW_TAG }}
+          tags: tannvdev19/sample-nodejs:${{ steps.increment-git-tag.outputs.NEW_TAG }}
           labels: ${{ steps.meta.outputs.labels }}
 
   push_to_ecr:
@@ -74,7 +73,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ vars.ECR_REGISTRY }}
           ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
-          IMAGE_TAG: ${{ env.NEW_TAG }}
+          IMAGE_TAG: ${{ steps.increment-git-tag.outputs.NEW_TAG }}
         run: |
           echo "Image tag: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
           docker build --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
