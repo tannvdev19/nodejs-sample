@@ -1,15 +1,14 @@
 #!/bin/bash
 
-git config --global user.email "tannvdev19@gmail.com"
-git config --global user.name "tannv19"
-
 VERSION=""
+ENVIROMENT=""
 
 # get parameters
 while getopts v: flag
 do
   case "${flag}" in
     v) VERSION=${OPTARG};;
+    # e) ENVIROMENT=${OPTARG};;
   esac
 done
 
@@ -69,3 +68,5 @@ fi
 echo "NEW_TAG=$NEW_TAG" >> $GITHUB_OUTPUT
 
 exit 0
+
+// git tag --list "dev-v*" --sort=-creatordate | head -n 1
