@@ -37,7 +37,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.increment-git-tag.outputs.new_tag }}
+          tags: $NEW_TAG
           labels: ${{ steps.meta.outputs.labels }}
 
   push_to_ecr:
@@ -70,7 +70,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ vars.ECR_REGISTRY }}
           ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
-          IMAGE_TAG: $NOW
+          IMAGE_TAG: $NEW_TAG
         run: |
           echo "Image tag: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
           docker build --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
