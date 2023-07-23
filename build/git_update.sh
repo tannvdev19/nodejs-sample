@@ -57,6 +57,7 @@ NEEDS_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 if [ -z "$NEEDS_TAG" ]; then
   echo "Tagged with $NEW_TAG"
   git tag -a $NEW_TAG -m "Generated new tag with github actions: $(date +%Y-%m-%d:%H:%M:%S)"
+  echo "Message: Generated new tag with github actions: $(date +%Y-%m-%d:%H:%M:%S)"
   git push --tags
   git push
 else

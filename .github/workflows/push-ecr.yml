@@ -9,10 +9,21 @@ on:
 permissions: write-all
 
 jobs:
+  create_version:
+    name: Create version base of previous tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Automatic Tagging of Releases
+        id: increment-git-tag
+        run: |
+          bash ./build/git_update.sh -v patch
+    outputs:
+      NEW_TAG: ${{ steps.increment-git-tag.outputs.NEW_TAG }}
   push_to_registry:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     environment: prod
+    needs: create_version
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -23,10 +34,10 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Automatic Tagging of Releases
-        id: increment-git-tag
-        run: |
-          bash ./build/git_update.sh -v patch
+      #   - name: Automatic Tagging of Releases
+      #     id: increment-git-tag
+      #     run: |
+      #       bash ./build/git_update.sh -v patch
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
@@ -40,13 +51,15 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: tannvdev19/sample-nodejs:${{ steps.increment-git-tag.outputs.NEW_TAG }}
+          #   tags: tannvdev19/sample-nodejs:${{ steps.increment-git-tag.outputs.NEW_TAG }}
+          tags: tannvdev19/sample-nodejs:${{ needs.create_version.outputs.NEW_TAG }}
           labels: ${{ steps.meta.outputs.labels }}
 
   push_to_ecr:
     name: Push docker image to ECR
     runs-on: ubuntu-latest
     environment: prod
+    needs: create_version
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -61,10 +74,10 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Automatic Tagging of Releases
-        id: increment-git-tag
-        run: |
-          bash ./build/git_update.sh -v patch
+      #   - name: Automatic Tagging of Releases
+      #     id: increment-git-tag
+      #     run: |
+      #       bash ./build/git_update.sh -v patch
 
       #   - name: Set current date as env variable
       #     run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
@@ -73,7 +86,8 @@ jobs:
         env:
           ECR_REGISTRY: ${{ vars.ECR_REGISTRY }}
           ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
-          IMAGE_TAG: ${{ steps.increment-git-tag.outputs.NEW_TAG }}
+          #   IMAGE_TAG: ${{ steps.increment-git-tag.outputs.NEW_TAG }}
+          IMAGE_TAG: ${{ needs.create_version.outputs.NEW_TAG}}
         run: |
           echo "Image tag: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
           docker build --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
