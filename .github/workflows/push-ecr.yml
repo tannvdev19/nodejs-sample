@@ -16,7 +16,7 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v3
       - name: Build the Docker image
-        run: docker build -t tannvdev19/sample-nodejs ./12345
+        run: docker build -t tannvdev19/sample-nodejs .
 
   create_version:
     name: Create tag base of previous tag
