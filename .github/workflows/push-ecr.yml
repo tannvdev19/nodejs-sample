@@ -12,11 +12,12 @@ jobs:
   build:
     name: Build Docker image
     runs-on: ubuntu-latest
+    environment: prod
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
       - name: Build the Docker image
-        run: docker build -t tannvdev19/sample-nodejs .
+        run: docker build -t ${{secrets.DOCKER_USERNAME}}/${{ vars.PROJECT_NAME }} .
 
   create_version:
     name: Create tag base of previous tag
@@ -58,7 +59,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: tannvdev19/sample-nodejs:${{ needs.create_version.outputs.NEW_TAG }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ vars.PROJECT_NAME }}:${{ needs.create_version.outputs.NEW_TAG }}
           labels: ${{ steps.meta.outputs.labels }}
 
   push_to_ecr:
