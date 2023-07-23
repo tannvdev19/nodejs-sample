@@ -20,7 +20,7 @@ CURRENT_VERSION=`git tag --list "$ENVIRONMENT-v*" --sort=-creatordate | head -n 
 
 if [[ $CURRENT_VERSION == '' ]]
 then
-  CURRENT_VERSION='v0.1.0'
+  CURRENT_VERSION='${ENVIRONMENT}-v0.1.0'
 fi
 echo "Current Version: $CURRENT_VERSION"
 
