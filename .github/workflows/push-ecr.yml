@@ -28,7 +28,7 @@ jobs:
       - name: Automatic Tagging of Releases
         id: increment-git-tag
         run: |
-          bash ./build/git_update_2.sh -v patch -e ${GITHUB_REF##*/}
+          bash ./build/git_update.sh -v patch -e ${GITHUB_REF##*/}
     outputs:
       NEW_TAG: ${{ steps.increment-git-tag.outputs.NEW_TAG }}
   # push_to_registry:
