@@ -73,5 +73,4 @@ fi
 echo "NEW_TAG=$NEW_TAG" >> $GITHUB_OUTPUT
 
 exit 0
-
 // git tag --list "dev-v*" --sort=-creatordate | head -n 1
