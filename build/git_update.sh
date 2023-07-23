@@ -61,5 +61,6 @@ else
 fi
 
 echo ::set-output name=git-tag::$NEW_TAG
+echo "NEW_TAG=$NEW_TAG" >> $GITHUB_ENV
 
 exit 0
