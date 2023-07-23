@@ -9,20 +9,19 @@ on:
 permissions: write-all
 
 jobs:
-  build:
-    name: Build Docker image
-    runs-on: ubuntu-latest
-    environment: prod
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v3
-      - name: Build the Docker image
-        run: docker build -t ${{secrets.DOCKER_USERNAME}}/${{ vars.PROJECT_NAME }} .
+  # build:
+  #   name: Build Docker image
+  #   runs-on: ubuntu-latest
+  #   environment: prod
+  #   steps:
+  #     - name: Check out the repo
+  #       uses: actions/checkout@v3
+  #     - name: Build the Docker image
+  #       run: docker build -t ${{secrets.DOCKER_USERNAME}}/${{ vars.PROJECT_NAME }} .
 
   create_version:
     name: Create tag base of previous tag
     runs-on: ubuntu-latest
-    needs: build
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3

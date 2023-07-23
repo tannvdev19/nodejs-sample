@@ -12,7 +12,8 @@ do
   esac
 done
 
-echo "ENVIROMENT: $ENVIROMENT";
+# echo "ENVIROMENT: $ENVIROMENT";
+echo "ENVIROMENT: ${GITHUB_REF##*/}";
 
 # get highest tag number, and add v0.1.0 if doesn't exist
 git fetch --prune --unshallow 2>/dev/null
