@@ -37,7 +37,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: latest
+          tags: ${{ vars.DOCKER_IMAGE }}/${{ env.NEW_TAG }}
           labels: ${{ steps.meta.outputs.labels }}
 
   push_to_ecr:
