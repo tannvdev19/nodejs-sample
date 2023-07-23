@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# git config --global user.email "tannvdev19@gmail.com"
-# git config --global user.name "tannv19"
+git config --global user.email "tannvdev19@gmail.com"
+git config --global user.name "tannv19"
 
 VERSION=""
 
