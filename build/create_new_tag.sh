@@ -8,15 +8,14 @@ git config --global user.email "github-actions[bot]@users.noreply.github.com"
 git config --global user.name "github-actions[bot]"
 
 # get parameters
-while getopts e:v: flag
+while getopts "e:v:" flag
 do
   case "${flag}" in
-    v) VERSION=${OPTARG};;
-    e) ENVIROMENT=${OPTARG};;
+    v) VERSION=${OPTARG} ;;
+    e) ENVIRONMENT=${OPTARG} ;;
   esac
 done
 
-# echo "ENVIROMENT: $ENVIROMENT";
 echo "ENVIRONMENT=$ENVIRONMENT";
 
 # get highest tag number, and add v0.1.0 if doesn't exist
