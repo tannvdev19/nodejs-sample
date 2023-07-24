@@ -11,6 +11,10 @@ on:
         description: "Do you want to create tag and push (no or yes)?"
         required: true
         default: "no"
+      update-version-type:
+        description: "Do you want to create new tags for major, minor or patch?"
+        required: true
+        default: "patch"
 
 permissions: write-all
 
