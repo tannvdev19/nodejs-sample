@@ -13,8 +13,12 @@ on:
         default: "no"
       update-version-type:
         description: "Do you want to create new tags for major, minor or patch?"
-        required: true
-        default: "patch"
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+        default: patch
 
 permissions: write-all
 
