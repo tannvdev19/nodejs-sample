@@ -16,7 +16,6 @@ do
   esac
 done
 
-
 echo "ENVIRONMENT=$ENVIRONMENT";
 
 # get highest tag number, and add v0.1.0 if doesn't exist
