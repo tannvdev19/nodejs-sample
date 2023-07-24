@@ -19,4 +19,4 @@ jobs:
       environment: $GITHUB_REF_NAME
     steps:
       - name: egeogjie
-        run: echo "1244"
+        run: echo "1244f"
