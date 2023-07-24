@@ -95,12 +95,12 @@ jobs:
         id: clean-image
         run:
           | # aws ecr batch-delete-image --repository-name ${{ vars.ECR_REPOSITORY }} --image-ids imageTag="-"
-          aws ecr describe-images --repository-name ${{ vars.ECR_REPOSITORY }}\
-              --query 'imageDetails[?contains(imageTags, `-`)].imageDigest' \
-              --output text > image_digests.txt
+          aws ecr describe-images --repository-name your-repository-name \
+          --query 'imageDetails[?imageTags==null].{digest:imageDigest}' \
+          --output json | jq -r '.[].digest' > image_digests.txt
 
           while read -r image_digest; do
-              aws ecr batch-delete-image --repository-name ${{ vars.ECR_REPOSITORY }} --image-ids imageDigest="$image_digest"
-              done < image_digests.txt
+            aws ecr batch-delete-image --repository-name your-repository-name --image-ids imageDigest="$image_digest"
+            done < image_digests.txt
 
           rm image_digests.txt
