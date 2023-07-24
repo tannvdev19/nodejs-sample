@@ -1,13 +1,10 @@
 name: Manual Trigger Workflow with Confirmation
 
 on:
-  workflow_dispatch:
-    inputs:
-      confirmation:
-        description: 'Confirm to proceed'
-        required: true
-        default: 'no'
-
+  push:
+    branches: ["prod"]
+  pull_request:
+    branches: ["prod"]
 jobs:
   my-job:
     runs-on: ubuntu-latest
@@ -15,7 +12,7 @@ jobs:
       - name: Confirmation Step
         if: ${{ github.event.inputs.confirmation == 'yes' }}
         run: echo "Confirmed. Proceeding with the workflow."
-      
+
       - name: Skipped Step
         if: ${{ github.event.inputs.confirmation == 'no' }}
         run: echo "Workflow execution was canceled."
