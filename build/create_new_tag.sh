@@ -27,6 +27,7 @@ then
 fi
 echo "Current Version: $CURRENT_VERSION"
 
+
 # replace . with space so can split into an array
 CURRENT_VERSION_PARTS=(${CURRENT_VERSION//./ })
 
