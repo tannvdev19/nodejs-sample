@@ -1,4 +1,5 @@
 name: Terraform-Github-Destroy
+
 on:
   workflow_dispatch:
     inputs:
@@ -16,3 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       environment: $GITHUB_REF_NAME
+    steps:
+      - name: egeogjie
+        run: echo "1244"
