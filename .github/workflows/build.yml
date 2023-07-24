@@ -93,4 +93,4 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
       - name: Clean image empty tag
         id: clean-image
-        run: aws ecr batch-delete-image --repository-name test-ecr-policy --image-ids imageTag="-"
+        run: aws ecr batch-delete-image --repository-name ${{ vars.ECR_REPOSITORY }} --image-ids imageTag="-"
