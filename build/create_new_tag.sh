@@ -1,16 +1,18 @@
 #!/bin/bash
 
 VERSION=""
-ENVIRONMENT=${GITHUB_REF##*/}
+# ENVIRONMENT=${GITHUB_REF##*/}
+ENVIROMENT=""
 
 git config --global user.email "github-actions[bot]@users.noreply.github.com"
 git config --global user.name "github-actions[bot]"
 
 # get parameters
-while getopts v: flag
+while getopts v:e: flag
 do
   case "${flag}" in
     v) VERSION=${OPTARG};;
+    e) ENVIROMENT=${OPTARG};;
   esac
 done
 
