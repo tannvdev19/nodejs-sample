@@ -8,9 +8,12 @@ on:
   workflow_dispatch:
     inputs:
       confirm-create-tag:
+        type: choice
         description: "Do you want to create tag and push (no or yes)?"
-        required: true
         default: "no"
+        options:
+          - yes
+          - no
       update-version-type:
         description: "Do you want to create new tags for major, minor or patch?"
         type: choice
