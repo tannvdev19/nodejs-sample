@@ -1,10 +1,16 @@
-name: Docker Image CI
+name: Create tag and push to ecr
 
 on:
-  push:
-    branches: ["prod"]
-  pull_request:
-    branches: ["prod"]
+  # push:
+  #   branches: ["prod"]
+  # pull_request:
+  #   branches: ["prod"]
+  workflow_dispatch:
+    inputs:
+      confirm-create-tag:
+        description: "Do you want to create tag and push (no or yes)?"
+        required: true
+        default: "no"
 
 permissions: write-all
 
@@ -22,13 +28,14 @@ jobs:
   create_version:
     name: Create tag base of previous tag
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
       - name: Automatic Tagging of Releases
         id: increment-git-tag
         run: |
-          bash ./build/git_update_2.sh -v patch -e ${GITHUB_REF##*/}
+          bash ./build/git_update_2.sh -v patch
     outputs:
       NEW_TAG: ${{ steps.increment-git-tag.outputs.NEW_TAG }}
   push_to_registry:
