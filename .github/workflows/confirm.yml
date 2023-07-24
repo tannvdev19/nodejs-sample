@@ -1,23 +1,18 @@
-name: Manual Trigger Workflow with Confirmation
-
+name: Terraform-Github-Destroy
 on:
   workflow_dispatch:
     inputs:
-      confirmation:
-        description: "Confirm to proceed"
+      destroyType:
+        description: "Do you want to destroy (no or yes)?"
         required: true
         default: "no"
 
+permissions:
+  contents: read
+
 jobs:
-  my-job:
+  tf-destroy:
+    name: Terraform destroy
     runs-on: ubuntu-latest
-    steps:
-      - name: Confirmation Step
-        if: ${{ github.event.inputs.confirmation == 'yes' }}
-        run: echo "Confirmed. Proceeding with the workflow."
-
-      - name: Skipped Step
-        if: ${{ github.event.inputs.confirmation == 'no' }}
-        run: echo "Workflow execution was canceled."
-
-      # Add more steps as needed
+    env:
+      environment: $GITHUB_REF_NAME
