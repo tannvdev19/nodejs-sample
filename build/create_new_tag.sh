@@ -64,15 +64,21 @@ GIT_COMMIT=`git rev-parse HEAD`
 NEEDS_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 
 # only tag if no tag already
-if [ -z "$NEEDS_TAG" ]; then
-  echo "Tagged with $NEW_TAG"
-  git tag -a $NEW_TAG -m "Generated new tag with github actions: $(date +%Y-%m-%d:%H:%M:%S)"
-  echo "Message: Generated new tag with github actions: $(date +%Y-%m-%d:%H:%M:%S)"
-  git push --tags
-  git push
-else
-  echo "Already a tag on this commit"
-fi
+# if [ -z "$NEEDS_TAG" ]; then
+#   echo "Tagged with $NEW_TAG"
+#   git tag -a $NEW_TAG -m "Generated new tag with github actions: $(date +%Y-%m-%d:%H:%M:%S)"
+#   echo "Message: Generated new tag with github actions: $(date +%Y-%m-%d:%H:%M:%S)"
+#   git push --tags
+#   git push
+# else
+#   echo "Already a tag on this commit"
+# fi
+
+echo "Tagged with $NEW_TAG"
+git tag -a $NEW_TAG -m "Generated new tag with github actions: $(date +%Y-%m-%d:%H:%M:%S)"
+echo "Message: Generated new tag with github actions: $(date +%Y-%m-%d:%H:%M:%S)"
+git push --tags
+git push
 
 # echo ::set-output name=git-tag::$NEW_TAG
 # echo "NEW_TAG=$NEW_TAG" >> $GITHUB_ENV
