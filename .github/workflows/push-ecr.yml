@@ -1,4 +1,4 @@
-name: Create tag and push to ecr
+name: Create tag and push to ecr with increment tags 
 
 on:
   # push:

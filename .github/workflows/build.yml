@@ -1,10 +1,13 @@
-name: Manual Trigger Workflow with Confirmation
+name: Build and push to ecr
 
 on:
   push:
     branches: ["prod"]
   pull_request:
     branches: ["prod"]
+
+permissions: write-all
+
 jobs:
   build:
     name: Build Docker image
@@ -19,6 +22,8 @@ jobs:
   version:
     name: Get current version
     runs-on: ubuntu-latest
+    environment: ${{ github.ref_name }}
+    needs: build
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -27,7 +32,7 @@ jobs:
         run: |
           bash ./build/get_current_tag.sh
     outputs:
-       CURRENT_TAG: ${{ steps.increment-git-tag.outputs.CURRENT_TAG }}
+      CURRENT_TAG: ${{ steps.increment-git-tag.outputs.CURRENT_TAG }}
 
   push_to_registry:
     name: Push Docker image to Docker Hub
