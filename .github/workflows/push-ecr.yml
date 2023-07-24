@@ -24,7 +24,7 @@ jobs:
   build:
     name: Build Docker image
     runs-on: ubuntu-latest
-    environment: ${{github.ref_name}}
+    environment: ${{ github.ref_name }}
     if: github.event.inputs.confirm-create-tag == 'yes'
     steps:
       - name: Check out the repo
@@ -42,13 +42,13 @@ jobs:
       - name: Automatic Tagging of Releases
         id: increment-git-tag
         run: |
-          bash ./build/git_update_2.sh -v ${{github.event.inputs.update-version-type}}
+          bash ./build/create_new_tag.sh -v ${{github.event.inputs.update-version-type}}
     outputs:
       NEW_TAG: ${{ steps.increment-git-tag.outputs.NEW_TAG }}
   push_to_registry:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
-    environment: ${{github.ref_name}}
+    environment: ${{ github.ref_name }}
     needs: create_version
     steps:
       - name: Check out the repo
@@ -78,7 +78,7 @@ jobs:
   push_to_ecr:
     name: Push docker image to ECR
     runs-on: ubuntu-latest
-    environment: ${{github.ref_name}}
+    environment: ${{ github.ref_name }}
     needs: create_version
     steps:
       - name: Check out the repo
