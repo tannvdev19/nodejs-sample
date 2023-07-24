@@ -1,16 +1,16 @@
 name: Create tag and push to ecr
 
 on:
-  push:
-    branches: ["prod"]
-  pull_request:
-    branches: ["prod"]
-  # workflow_dispatch:
-  #   inputs:
-  #     confirm-create-tag:
-  #       description: "Do you want to create tag and push (no or yes)?"
-  #       required: true
-  #       default: "no"
+  # push:
+  #   branches: ["prod"]
+  # pull_request:
+  #   branches: ["prod"]
+  workflow_dispatch:
+    inputs:
+      confirm-create-tag:
+        description: "Do you want to create tag and push (no or yes)?"
+        required: true
+        default: "no"
 
 permissions: write-all
 
