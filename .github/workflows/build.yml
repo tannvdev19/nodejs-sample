@@ -13,7 +13,6 @@ jobs:
     name: Build Docker image
     runs-on: ubuntu-latest
     environment: ${{ github.ref_name }}
-    if: github.event.inputs.confirm-create-tag == 'yes'
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
