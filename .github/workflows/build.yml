@@ -96,8 +96,8 @@ jobs:
         run:
           | # aws ecr batch-delete-image --repository-name ${{ vars.ECR_REPOSITORY }} --image-ids imageTag="-"
           aws ecr describe-images --repository-name ${{ vars.ECR_REPOSITORY }} \
-          --query 'imageDetails[?imageTags==null].{digest:imageDigest}' \
-          --output json | jq -r '.[].digest' > image_digests.txt
+            --query 'imageDetails[?imageTags==null].{digest:imageDigest}' \
+            --output json | jq -r '.[].digest' > image_digests.txt
 
           while read -r image_digest; do
             aws ecr batch-delete-image --repository-name ${{ vars.ECR_REPOSITORY }} --image-ids imageDigest="$image_digest"
