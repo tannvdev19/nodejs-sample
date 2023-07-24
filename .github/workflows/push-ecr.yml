@@ -11,16 +11,11 @@ on:
         type: choice
         description: "Do you want to create tag and push (no or yes)?"
         default: "no"
-        options:
-          - yes
-          - no
+        options: ["yes", "no"]
       update-version-type:
         description: "Do you want to create new tags for major, minor or patch?"
         type: choice
-        options:
-          - patch
-          - minor
-          - major
+        options: ["patch", "minor", "major"]
         default: patch
 
 permissions: write-all
