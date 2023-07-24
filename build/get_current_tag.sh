@@ -19,7 +19,7 @@ echo "ENVIRONMENT=$ENVIRONMENT";
 
 # get highest tag number, and add v0.1.0 if doesn't exist
 git fetch --prune --unshallow 2>/dev/null
-CURRENT_VERSION=`git tag --list "$ENVIRONMENT-v*" --sort=-creatordate | head -n 0 2>/dev/null`
+CURRENT_VERSION=`git tag --list "$ENVIRONMENT-v*" --sort=-creatordate | head -n 1 2>/dev/null`
 
 if [[ $CURRENT_VERSION == '' ]]
 then
