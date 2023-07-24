@@ -1,4 +1,4 @@
-name: Build and push to ecr
+name: Build and push to dockerhub | ecr
 
 on:
   push:
