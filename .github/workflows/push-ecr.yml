@@ -7,7 +7,7 @@ on:
   #   branches: ["prod"]
   workflow_dispatch:
     inputs:
-      confirm-create-tag:
+      confirmCreateTag:
         description: "Do you want to create tag and push (no or yes)?"
         required: true
         default: "no"
