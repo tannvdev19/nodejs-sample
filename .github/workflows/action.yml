@@ -17,4 +17,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Set Environment Variables
-        run: gh variable set TRY_ACTION --body "12345"
+        run: gh variable set TRY_ACTION --body "12345" -e try-action
