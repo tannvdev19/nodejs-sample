@@ -15,9 +15,9 @@ jobs:
 
       - name: Set environment variable
         run: |
-          echo "PRODUCTION_API_KEY=your_production_api_key_value" >> $GITHUB_ENV
+          echo "$PRODUCTION_API_KEY=your_production_api_key_value"
         # Replace 'your_production_api_key_value' with the actual value you want to set.
 
       - name: Build and deploy
         run: |
-          echo ${{ env.PRODUCTION_API_KEY }}
+          echo "$PRODUCTION_API_KEY"
