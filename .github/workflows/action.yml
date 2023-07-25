@@ -4,20 +4,23 @@ on:
   push:
     branches:
       - try-action
+
 permissions: write-all
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: try-action
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Set environment variable
         run: |
-          echo "$PRODUCTION_API_KEY=your_production_api_key_value"
-        # Replace 'your_production_api_key_value' with the actual value you want to set.
+          echo "TRY_ACTION=new_value_here" >> $GITHUB_ENV
+        # Replace 'new_value_here' with the actual value you want to set for TRY_ACTION.
 
       - name: Build and deploy
         run: |
-          echo "${{env.TRY_ACTION}}"
+          echo $TRY_ACTION
+          # Use the updated value of $TRY_ACTION in your build and deploy commands.
