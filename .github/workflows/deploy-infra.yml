@@ -52,6 +52,8 @@ jobs:
     environment: ${{ github.event.inputs.choice-branch }}
     env:
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      environment: ${{ github.event.inputs.choice-branch }}
     steps:
       - name: Update Github Variables
-        run: ./bash-script/update_vars.sh -e ${{env.environment}} -u ${{ needs.create_ecr.outputs.ecr_repo_url }}
+        # run: ./bash-script/update_vars.sh -e ${{env.environment}} -u ${{ needs.create_ecr.outputs.ecr_repo_url }}
+        run: gh variable set ECR_REPO_URL -b ${{ needs.create_ecr.outputs.ecr_repo_url }} -e ${{env.environment}}}
