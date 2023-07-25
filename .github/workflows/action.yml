@@ -8,19 +8,10 @@ on:
 permissions: write-all
 
 jobs:
-  build:
+  update_env_vars:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set environment variable
-        run: |
-          echo "TRY_ACTION=new_value_here" >> $GITHUB_ENV
-        # Replace 'new_value_here' with the actual value you want to set for TRY_ACTION.
-
-      - name: Build and deploy
-        run: |
-          echo $TRY_ACTION
-          # Use the updated value of $TRY_ACTION in your build and deploy commands.
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set Environment Variables
+        run: gh variable set TRY_ACTION --body "12345"
