@@ -54,6 +54,10 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       environment: ${{ github.event.inputs.choice-branch }}
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: infra
       - name: Update Github Variables
-        # run: ./bash-script/update_vars.sh -e ${{env.environment}} -u ${{ needs.create_ecr.outputs.ecr_repo_url }}
-        run: gh variable set ECR_REPO_URL -b ${{ needs.create_ecr.outputs.ecr_repo_url }} -e ${{env.environment}}}
+        run: ./bash-script/update_vars.sh -e ${{env.environment}} -u ${{ needs.create_ecr.outputs.ecr_repo_url }}
+        # run: gh variable set ECR_REPO_URL -b ${{ needs.create_ecr.outputs.ecr_repo_url }} -e ${{env.environment}}}
