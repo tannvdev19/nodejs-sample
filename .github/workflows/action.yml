@@ -1,4 +1,4 @@
-name: Your Workflow
+name: Try action
 
 on:
   push:
