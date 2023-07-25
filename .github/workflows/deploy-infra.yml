@@ -42,7 +42,9 @@ jobs:
         run: terraform apply -auto-approve
       - name: Terraform output
         working-directory: ./env-${{env.environment}}
-        run: echo "ECR_REPO_URL=$(terraform output ecr_repo_url)" >> $GITHUB_ENV
+        run: |
+          terraform output ecr_repo_url
+          echo "ECR_REPO_URL=$(terraform output ecr_repo_url)" >> $GITHUB_ENV
     outputs:
       ecr_repo_url: ${{ env.ECR_REPO_URL }}
   update_variables:
@@ -61,6 +63,5 @@ jobs:
       - name: Update Github Variables
         run: |
           echo "url: ${{ needs.create_ecr.outputs.ecr_repo_url }}"
-          sudo chmod +x ./bash-script/update_vars.sh
-          ./bash-script/update_vars.sh -e ${{env.environment}} -u ${{ needs.create_ecr.outputs.ecr_repo_url }}
+          bash ./bash-script/update_vars.sh -e ${{env.environment}} -u ${{ needs.create_ecr.outputs.ecr_repo_url }}
         # run: gh variable set ECR_REPO_URL -b ${{ needs.create_ecr.outputs.ecr_repo_url }} -e ${{env.environment}}}
