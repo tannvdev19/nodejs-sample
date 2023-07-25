@@ -20,4 +20,4 @@ jobs:
 
       - name: Build and deploy
         run: |
-          echo "$PRODUCTION_API_KEY"
+          echo "${{env.TRY_ACTION}}"
