@@ -1,0 +1,26 @@
+name: Your Workflow
+
+on:
+  push:
+    branches:
+      - try-action
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: try-action
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set environment variable
+        run: |
+          echo "PRODUCTION_API_KEY=your_production_api_key_value" >> $GITHUB_ENV
+        # Replace 'your_production_api_key_value' with the actual value you want to set.
+
+      - name: Build and deploy
+        run: |
+          # Your build and deploy commands here, using the $PRODUCTION_API_KEY environment variable.
+          # For example:
+          # export API_KEY=$PRODUCTION_API_KEY
+          # ./deploy_script.sh
