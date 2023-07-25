@@ -43,9 +43,9 @@ jobs:
       - name: Terraform output
         id: tf-output
         working-directory: ./env-${{env.environment}}
-        run: echo "ECR_REPO_URL=$(terraform output ecr_repo_url)" >> $GITHUB_ENV
+        run: echo "ECR_REPO_URL=$(terraform output ecr_repo_url)" >> $GITHUB_OUTPUT
     outputs:
-      ECR_REPO_URL: ${{ env.ECR_REPO_URL }}
+      ECR_REPO_URL: ${{ steps.tf-output.outputs.ECR_REPO_URL }}
   update_variables:
     name: Update Github Variables
     runs-on: ubuntu-latest
@@ -62,6 +62,6 @@ jobs:
           ref: prod
       - name: Update Github Variables
         run: |
-          echo "url: ${{ env.repo_url }}"
+          echo "url: ${{ env.repo_url }}" ||
           bash ./bash-script/update-vars.sh -e ${{env.environment}} -u ${{ env.repo_url }}
         # run: gh variable set ECR_REPO_URL -b ${{ needs.create_ecr.outputs.ecr_repo_url }} -e ${{env.environment}}}
