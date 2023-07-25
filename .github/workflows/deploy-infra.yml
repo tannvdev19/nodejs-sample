@@ -43,10 +43,11 @@ jobs:
       - name: Terraform output
         id: tf-output
         working-directory: ./env-${{env.environment}}
-        run: # echo "ECR_REPO_URL=$(terraform output ecr_repo_url)" >> $GITHUB_OUTPUT
-          terraform output ecr_repo_url
+        run: echo "ECR_REPO_URL=$(terraform output ecr_repo_url)" >> $GITHUB_ENV
+      - name: Check variable
+        run: echo ${{ env.ECR_REPO_URL }}
     outputs:
-      ECR_REPO_URL: ${{ steps.tf-output.outputs.ECR_REPO_URL }}
+      ECR_REPO_URL: ${{ env.ECR_REPO_URL }}
   update_variables:
     name: Update Github Variables
     runs-on: ubuntu-latest
