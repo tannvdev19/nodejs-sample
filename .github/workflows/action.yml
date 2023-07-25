@@ -20,7 +20,4 @@ jobs:
 
       - name: Build and deploy
         run: |
-          # Your build and deploy commands here, using the $PRODUCTION_API_KEY environment variable.
-          # For example:
-          # export API_KEY=$PRODUCTION_API_KEY
-          # ./deploy_script.sh
+          echo ${{ env.PRODUCTION_API_KEY }}
