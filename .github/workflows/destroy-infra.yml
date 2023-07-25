@@ -1,26 +1,26 @@
 name: Destroy terraform
 
 on:
-    workflow_dispatch:
-        inputs:
-            choice-branch:
-                type: choice
-                description: 'Choose the environment to destroy ecr'
-                default: 'dev'
-                options:
-                    - 'dev'
-                    - 'prod'
+  workflow_dispatch:
+    inputs:
+      choice-branch:
+        type: choice
+        description: "Choose the environment to destroy ecr"
+        default: "dev"
+        options:
+          - "dev"
+          - "prod"
 
 jobs:
   destroy:
     runs-on: ubuntu-latest
     env:
-        environment: ${{ github.event.inputs.choice-branch }}
+      environment: ${{ github.event.inputs.choice-branch }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-            ref: infra
+          ref: infra
       - name: Config AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:

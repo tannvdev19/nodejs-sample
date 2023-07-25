@@ -30,7 +30,7 @@ jobs:
       - name: Get current tag
         id: get-current-tag
         run: |
-          bash ./build/get_current_tag.sh
+          bash ./bash-script/get_current_tag.sh
     outputs:
       CURRENT_TAG: ${{ steps.get-current-tag.outputs.CURRENT_VERSION }}
 

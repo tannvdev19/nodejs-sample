@@ -48,7 +48,7 @@ jobs:
       - name: Automatic Tagging of Releases
         id: increment-git-tag
         run: |
-          bash ./build/create_new_tag.sh -v ${{github.event.inputs.update-version-type}} -e ${{ github.event.inputs.choose-branch}}
+          bash ./bash-script/create_new_tag.sh -v ${{github.event.inputs.update-version-type}} -e ${{ github.event.inputs.choose-branch}}
     outputs:
       NEW_TAG: ${{ steps.increment-git-tag.outputs.NEW_TAG }}
   push_to_registry:
