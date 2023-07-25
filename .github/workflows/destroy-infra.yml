@@ -1,5 +1,4 @@
-name: Destroy terraform
-
+name: Destroy ecr
 on:
   workflow_dispatch:
     inputs:
