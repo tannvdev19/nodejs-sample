@@ -10,8 +10,17 @@ provider "aws" {
   region = var.region
 }
 
+module "dev_ec2" {
+  source = "../modules/ec2"
+
+  ec2_name="ec2-nodejs-sample-dev"
+  ec2_key_name="ec2_key-dev"
+}
+
 module "dev_ecr" {
   source = "../modules/ecr"
 
   ecr_name = var.repo_name
 }
+
+
