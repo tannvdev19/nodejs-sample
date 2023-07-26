@@ -7,11 +7,11 @@ ECR_REPO_URL=""
 ENVIRONMENT=""
 
 # get parameters
-while getopts "e:u:" flag
+while getopts "ecr:env:" flag
 do
   case "${flag}" in
-    u) ECR_REPO_URL=${OPTARG} ;;
-    e) ENVIRONMENT=${OPTARG} ;;
+    ecr) ECR_REPO_URL=${OPTARG} ;;
+    env) ENVIRONMENT=${OPTARG} ;;
   esac
 done
 
