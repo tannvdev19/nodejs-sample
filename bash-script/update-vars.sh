@@ -29,9 +29,20 @@ echo "gh variable set $VARIABLE_ENVIRONMENT_NAME -b $ECR_REPO_URL -e $ENVIRONMEN
 
 
 
+# Save the current IFS value to restore it later
+oldIFS=$IFS
+# Set the IFS to "/"
+IFS="/"
+
+# Split the string into an array using the IFS
 read -ra parts <<< "$ECR_REPO_URL"
 
+# Restore the IFS to its original value
+IFS=$oldIFS
+
+# Loop through the array to access each part
+echo ${#parts[@]}
 for part in "${parts[@]}"; do
-    echo "value: $part"
+    echo "$part"
 done
 
