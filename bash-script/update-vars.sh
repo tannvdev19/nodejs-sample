@@ -29,7 +29,7 @@ echo "gh variable set $VARIABLE_ENVIRONMENT_NAME -b $ECR_REPO_URL -e $ENVIRONMEN
 
 
 
-string=ECR_REPO_URL
+string=$ECR_REPO_URL
 
 # Save the current IFS value to restore it later
 oldIFS=$IFS
