@@ -46,3 +46,6 @@ for part in "${parts[@]}"; do
     echo "$part"
 done
 
+gh variable set $GH_ECR_REGISTRY_NAME -b ${parts[0]} -e $ENVIRONMENT
+gh variable set $GH_ECR_REPOSITORY_NAME -b ${parts[1]} -e $ENVIRONMENT
+
