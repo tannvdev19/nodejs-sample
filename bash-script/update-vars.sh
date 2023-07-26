@@ -37,3 +37,7 @@ gh variable set $VARIABLE_ENVIRONMENT_NAME -b $ECR_REPO_URL -e $ENVIRONMENT
 gh variable set $GH_ECR_REGISTRY_NAME -b ${parts[0]} -e $ENVIRONMENT
 gh variable set $GH_ECR_REPOSITORY_NAME -b ${parts[1]} -e $ENVIRONMENT
 
+echo "gh variable set $VARIABLE_ENVIRONMENT_NAME -b $ECR_REPO_URL -e $ENVIRONMENT"
+echo "gh variable set $GH_ECR_REGISTRY_NAME -b ${parts[0]} -e $ENVIRONMENT"
+echo "gh variable set $GH_ECR_REPOSITORY_NAME -b ${parts[1]} -e $ENVIRONMENT"
+
