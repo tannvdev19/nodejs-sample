@@ -96,7 +96,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-southeast-1
+          aws-region: ${{vars.AWS_REGION}}
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -120,3 +120,23 @@ jobs:
           echo "Image tag: ${{ vars.ECR_REPO_URL }}:$IMAGE_TAG"
           docker build --tag ${{ vars.ECR_REPO_URL }}:$IMAGE_TAG .
           docker push ${{ vars.ECR_REPO_URL }}:$IMAGE_TAG
+
+  deploy_ec2:
+    name: Deploy container to EC2
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.choose-branch}}
+    needs: push_to_ecr
+    env:
+      PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v3
+        with:
+          ref: infra
+      - name: SSH into EC2 instance and deploy app
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 400 private_key
+          scp -o StrictHostKeyChecking=no -i private_key docker-compose.yaml ec2-user@${{vars.EC2_PUBLIC_IP}}:/home/ec2-user/docker-compose.yaml
+          ssh -o StrictHostKeyChecking=no -i private_key ec2-user@${{vars.EC2_PUBLIC_IP}}
+          aws ecr get-login-password --region ${{ vars.AWS_REGION }} | docker login --username AWS --password-stdin ${{ vars.ECR_REGISTRY}}
+          docker-compose up -d
