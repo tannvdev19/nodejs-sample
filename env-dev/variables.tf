@@ -10,7 +10,7 @@ variable "repo_name" {
 
 variable "key_name" {
   type = string
-  default = "fpt-cta-ec2-keypair"
+  default = "fpt-cta-ec2-keypair-dev"
 }
 
 variable "public_key" {
