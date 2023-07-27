@@ -1,4 +1,4 @@
-name: Create infrastruture
+name: Infrastruture create
 
 on:
   workflow_dispatch:
