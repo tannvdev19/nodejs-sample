@@ -38,6 +38,8 @@ jobs:
         run: |
           echo "${{ env.PRIVATE_KEY }}" > private_key
           chmod 400 private_key
+      - name: Debug private key
+        run: cat private_key
       - name: Terraform init
         working-directory: ./env-${{env.environment}}
         run: terraform init
