@@ -71,7 +71,7 @@ jobs:
           ref: prod
       - name: Update Github Variables
         run: |
-          echo "url: ${{ env.repo_url }}" 
-          bash ./bash-script/update-vars.sh -e ${{env.environment}} -u ${{ env.repo_url }}
-          gh secret set EC2_PUBLIC_IP -b ${{ env.EC2_PUBLIC_IP }} -e ${{env.environment}}
-        # gh secret set SSH_PRIVATE_KEY -b ${{ env.SSH_PRIVATE_KEY }} -e ${{env.environment}}
+          echo "url: ${{ env.REPO_URL }}" 
+          bash ./bash-script/update-vars.sh -e ${{env.ENVIRONMENT}} -u ${{ env.REPO_URL }}
+          gh secret set EC2_PUBLIC_IP -b ${{ env.EC2_PUBLIC_IP }} -e ${{env.ENVIRONMENT}}
+        # gh secret set SSH_PRIVATE_KEY -b ${{ env.SSH_PRIVATE_KEY }} -e ${{env.ENVIRONMENT}}
