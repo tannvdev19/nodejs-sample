@@ -44,8 +44,10 @@ jobs:
       - name: Terraform output
         id: tf-output
         working-directory: ./env-${{env.environment}}
-        run: echo "ECR_REPO_URL=$(terraform output ecr_repo_url)" >> $GITHUB_OUTPUT
-
+        run: |
+          echo "ECR_REPO_URL=$(terraform output ecr_repo_url)" >> $GITHUB_OUTPUT
+          echo "SSH_PRIVATE_KEY=$(terraform output ssh_private_key)" >> $GITHUB_OUTPUT
+          echo "EC2_PUBLIC_IP=$(terraform output ec2_public_ip)" >> $GITHUB_OUTPUT
     outputs:
       ECR_REPO_URL: ${{ steps.tf-output.outputs.ECR_REPO_URL }}
       SSH_PRIVATE_KEY: ${{ steps.tf-output.outputs.SSH_PRIVATE_KEY }}
