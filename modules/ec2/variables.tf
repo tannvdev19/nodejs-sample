@@ -20,5 +20,5 @@ variable "ec2_key_name" {
 
 variable "ec2_public_key" {
   type = string
-  required = true
+  nullable = false
 }

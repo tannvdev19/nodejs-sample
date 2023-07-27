@@ -10,6 +10,14 @@ provider "aws" {
   region = var.region
 }
 
+module "prod_ec2" {
+  source = "../modules/ec2"
+
+  ec2_name="ec2-nodejs-sample-prod"
+  ec2_key_name= var.key_name
+  ec2_public_key = var.public_key
+}
+
 module "prod_ecr" {
   source = "../modules/ecr"
 
