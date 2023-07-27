@@ -48,7 +48,12 @@ jobs:
           echo "ECR_REPO_URL=$(terraform output ecr_repo_url)" >> $GITHUB_OUTPUT
           echo "EC2_PUBLIC_IP=$(terraform output ec2_public_ip)" >> $GITHUB_OUTPUT
           echo "EC2_PUBLIC_DNS=$(terraform output ec2_public_dns)" >> $GITHUB_OUTPUT
-
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-without-markdown
+          path: |
+            /env-dev/main.tf
     outputs:
       ECR_REPO_URL: ${{ steps.tf-output.outputs.ECR_REPO_URL }}
       EC2_PUBLIC_IP: ${{ steps.tf-output.outputs.EC2_PUBLIC_IP }}
