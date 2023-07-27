@@ -51,7 +51,6 @@ jobs:
 
     outputs:
       ECR_REPO_URL: ${{ steps.tf-output.outputs.ECR_REPO_URL }}
-      # SSH_PRIVATE_KEY: ${{ steps.tf-output.outputs.SSH_PRIVATE_KEY }}
       EC2_PUBLIC_IP: ${{ steps.tf-output.outputs.EC2_PUBLIC_IP }}
       EC2_PUBLIC_DNS: ${{ steps.tf-output.outputs.EC2_PUBLIC_DNS }}
 
@@ -78,4 +77,3 @@ jobs:
           bash ./bash-script/update-vars.sh -e ${{env.ENVIRONMENT}} -u ${{ env.REPO_URL }}
           gh variable set EC2_PUBLIC_IP -b ${{ env.EC2_PUBLIC_IP }} -e ${{env.ENVIRONMENT}}
           gh variable set EC2_PUBLIC_DNS -b ${{ env.EC2_PUBLIC_DNS }} -e ${{env.ENVIRONMENT}}
-        # gh secret set SSH_PRIVATE_KEY -b ${{ env.SSH_PRIVATE_KEY }} -e ${{env.ENVIRONMENT}}
