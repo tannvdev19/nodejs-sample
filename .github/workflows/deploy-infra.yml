@@ -47,11 +47,13 @@ jobs:
         run: |
           echo "ECR_REPO_URL=$(terraform output ecr_repo_url)" >> $GITHUB_OUTPUT
           echo "EC2_PUBLIC_IP=$(terraform output ec2_public_ip)" >> $GITHUB_OUTPUT
+          echo "EC2_PUBLIC_DNS=$(terraform output ec2_public_dns)" >> $GITHUB_OUTPUT
 
     outputs:
       ECR_REPO_URL: ${{ steps.tf-output.outputs.ECR_REPO_URL }}
       # SSH_PRIVATE_KEY: ${{ steps.tf-output.outputs.SSH_PRIVATE_KEY }}
       EC2_PUBLIC_IP: ${{ steps.tf-output.outputs.EC2_PUBLIC_IP }}
+      EC2_PUBLIC_DNS: ${{ steps.tf-output.outputs.EC2_PUBLIC_DNS }}
 
   update_variables:
     name: Update Github Variables
@@ -74,4 +76,5 @@ jobs:
           echo "url: ${{ env.REPO_URL }}" 
           bash ./bash-script/update-vars.sh -e ${{env.ENVIRONMENT}} -u ${{ env.REPO_URL }}
           gh variable set EC2_PUBLIC_IP -b ${{ env.EC2_PUBLIC_IP }} -e ${{env.ENVIRONMENT}}
+          gh variable set EC2_PUBLIC_DNS -b ${{ env.EC2_PUBLIC_DNS }} -e ${{env.ENVIRONMENT}}
         # gh secret set SSH_PRIVATE_KEY -b ${{ env.SSH_PRIVATE_KEY }} -e ${{env.ENVIRONMENT}}
