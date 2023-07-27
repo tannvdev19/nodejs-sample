@@ -23,5 +23,3 @@ module "dev_ecr" {
 
   ecr_name = var.repo_name
 }
-
-
