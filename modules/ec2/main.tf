@@ -9,22 +9,22 @@ resource "aws_instance" "ec2_server" {
     Name = var.ec2_name
   }
 
-  connection {
-    type        = "ssh"
-    user        = "ec2-user"
-    private_key = tls_private_key.rsa.private_key_pem
-    host        = self.public_ip
-  }
+  # connection {
+  #   type        = "ssh"
+  #   user        = "ec2-user"
+  #   private_key = tls_private_key.rsa.private_key_pem
+  #   host        = self.public_ip
+  # }
 
   provisioner "file" {
     source      = "../bash-script/web.sh"
     destination = "/tmp/web.sh"
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "chmod +x /tmp/web.sh",
-      "/tmp/web.sh",
-    ]
-  }
+  # provisioner "remote-exec" {
+  #   inline = [
+  #     "chmod +x /tmp/web.sh",
+  #     "/tmp/web.sh",
+  #   ]
+  # }
 }
