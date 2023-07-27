@@ -9,6 +9,11 @@ resource "aws_instance" "ec2_server" {
     Name = var.ec2_name
   }
 
+  provisioner "local-exec" {
+    command    = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ec2-user --key-file private_key -T 300 -i '${self.public_ip},',  playbook.yaml"
+    on_failure = fail
+  }
+
   # connection {
   #   type        = "ssh"
   #   user        = "ec2-user"
@@ -27,4 +32,5 @@ resource "aws_instance" "ec2_server" {
   #     "/tmp/web.sh",
   #   ]
   # }
+
 }
