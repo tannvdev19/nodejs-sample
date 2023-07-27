@@ -16,10 +16,10 @@ resource "aws_instance" "ec2_server" {
   #   host        = self.public_ip
   # }
 
-  provisioner "file" {
-    source      = "../bash-script/web.sh"
-    destination = "/tmp/web.sh"
-  }
+  # provisioner "file" {
+  #   source      = "../bash-script/web.sh"
+  #   destination = "/tmp/web.sh"
+  # }
 
   # provisioner "remote-exec" {
   #   inline = [
