@@ -1,4 +1,4 @@
-name: Destroy ECR
+name: Destroy infrastructure
 on:
   workflow_dispatch:
     inputs:

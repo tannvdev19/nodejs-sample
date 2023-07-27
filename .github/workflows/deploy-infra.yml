@@ -1,4 +1,4 @@
-name: Create ECR
+name: Create infrastruture
 
 on:
   workflow_dispatch:
