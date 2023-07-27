@@ -47,7 +47,7 @@ jobs:
         run: |
           echo "ECR_REPO_URL=$(terraform output ecr_repo_url)" >> $GITHUB_OUTPUT
           echo "EC2_PUBLIC_IP=$(terraform output ec2_public_ip)" >> $GITHUB_OUTPUT
-     
+
     outputs:
       ECR_REPO_URL: ${{ steps.tf-output.outputs.ECR_REPO_URL }}
       # SSH_PRIVATE_KEY: ${{ steps.tf-output.outputs.SSH_PRIVATE_KEY }}
@@ -73,6 +73,5 @@ jobs:
         run: |
           echo "url: ${{ env.repo_url }}" 
           bash ./bash-script/update-vars.sh -e ${{env.environment}} -u ${{ env.repo_url }}
-          gh secret set SSH_PRIVATE_KEY -b ${{ env.SSH_PRIVATE_KEY }} -e ${{env.environment}}
           gh secret set EC2_PUBLIC_IP -b ${{ env.EC2_PUBLIC_IP }} -e ${{env.environment}}
-        # run: gh variable set ECR_REPO_URL -b ${{ needs.create_ecr.outputs.ecr_repo_url }} -e ${{env.environment}}}
+        # gh secret set SSH_PRIVATE_KEY -b ${{ env.SSH_PRIVATE_KEY }} -e ${{env.environment}}
