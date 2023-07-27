@@ -14,6 +14,3 @@ output "ec2_private_dns" {
     value = aws_instance.ec2_server.private_dns
 }
 
-output "ssh_private_key" {
-    value = tls_private_key.rsa.private_key_pem
-}

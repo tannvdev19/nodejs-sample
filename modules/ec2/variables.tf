@@ -17,3 +17,8 @@ variable "ec2_key_name" {
   type = string
   default = "ec2_key"
 }
+
+variable "ec2_public_key" {
+  type = string
+  required = true
+}
