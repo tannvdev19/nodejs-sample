@@ -1,0 +1,69 @@
+- name: Config application for ec2
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Update package cache
+      block:
+        - name: Update apt cache
+          dnf:
+            name: "*"
+            state: latest
+      become: true
+
+    - name: Install required packages
+      block:
+        - name: Install nginx
+          dnf:
+            name: nginx
+            state: present
+        - name: Install docker
+          dnf:
+            name: docker
+            state: present
+
+    - name: Configure nginx
+      template:
+        src: nginx.conf
+        dest: /etc/nginx/nginx.conf
+
+    - name: Add user to docker group
+      user:
+        name: ec2-user
+        groups: docker
+        append: yes
+
+    - name: Reset ssh connection to allow user changes to effect ansible user
+      ansible.builtin.meta: reset_connection
+
+    - name: Download Docker Compose binary
+      shell: "wget https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -O /usr/local/bin/docker-compose"
+      args:
+        creates: /usr/local/bin/docker-compose
+      register: download_result
+      changed_when: download_result.stdout.find('saved') != -1
+
+    - name: Make Docker Compose binary executable
+      shell: "chmod +x /usr/local/bin/docker-compose"
+
+    - name: Display Docker Compose version
+      shell: "docker-compose --version"
+      register: compose_version_output
+
+    - name: Display Docker Compose version
+      debug:
+        msg: "Docker Compose version is {{ compose_version_output.stdout }}"
+
+    - name: Start Nginx service
+      systemd:
+        name: nginx
+        state: started
+        enabled: yes
+      become: true
+
+    - name: Start Docker service
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+      become: true

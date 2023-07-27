@@ -1,0 +1,6 @@
+version: "3"
+services:
+  my_app:
+    image: ${ECR_REPO_URL}:latest
+    ports:
+      - "3000:3000"
