@@ -17,7 +17,7 @@ resource "aws_instance" "ec2_server" {
   }
 
   provisioner "file" {
-    source      = "../web.sh"
+    source      = "./web.sh"
     destination = "/tmp/web.sh"
   }
 
