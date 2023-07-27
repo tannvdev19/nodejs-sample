@@ -1,4 +1,4 @@
-name: Create tag and push to ecr with increment tags
+name: Push ECR and deploy container EC2
 
 on:
   # push:

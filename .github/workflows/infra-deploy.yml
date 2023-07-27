@@ -20,6 +20,7 @@ jobs:
     environment: ${{ github.event.inputs.choice-branch }}
     env:
       environment: ${{ github.event.inputs.choice-branch }}
+      PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -32,6 +33,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{vars.AWS_REGION}}
           mask-aws-account-id: "no"
+      - name: Get private key
+        working-directory: ./env-${{env.environment}}
+        run: |
+          echo "${{ env.PRIVATE_KEY }}" > private_key
+          chmod 400 private_key
       - name: Terraform init
         working-directory: ./env-${{env.environment}}
         run: terraform init
