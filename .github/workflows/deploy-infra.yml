@@ -52,8 +52,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dist-without-markdown
-          path: |
-            /env-dev/main.tf
+          path: modules
     outputs:
       ECR_REPO_URL: ${{ steps.tf-output.outputs.ECR_REPO_URL }}
       EC2_PUBLIC_IP: ${{ steps.tf-output.outputs.EC2_PUBLIC_IP }}

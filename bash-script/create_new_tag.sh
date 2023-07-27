@@ -80,8 +80,6 @@ echo "Message: Generated new tag with github actions: $(date +%Y-%m-%d:%H:%M:%S)
 git push --tags
 git push
 
-# echo ::set-output name=git-tag::$NEW_TAG
-# echo "NEW_TAG=$NEW_TAG" >> $GITHUB_ENV
 echo "NEW_TAG=$NEW_TAG" >> $GITHUB_OUTPUT
 
 exit 0
