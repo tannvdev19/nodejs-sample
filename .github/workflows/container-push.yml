@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref_name }}
       - name: Build the Docker image
         run: docker build -t ${{secrets.DOCKER_USERNAME}}/${{ vars.PROJECT_NAME }} .
   version:
@@ -27,6 +29,8 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
       - name: Get current tag
         id: get-current-tag
         run: |
@@ -98,3 +102,24 @@ jobs:
           echo "Image tag: ${{ vars.ECR_REPO_URL }}:$IMAGE_TAG"
           docker build --tag ${{ vars.ECR_REPO_URL }}:$IMAGE_TAG .
           docker push ${{ vars.ECR_REPO_URL }}:$IMAGE_TAG
+
+  clean_up:
+    name: Clean up image with null tag
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref_name }}
+    needs: push_to_ecr
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+        with:
+          ref: prod
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{vars.AWS_REGION}}
+      - name: Get digest image null
+        run: aws ecr describe-images --repository-name fpt-cta-ecr-sample-nodejs-prod --query 'imageDetails[?imageTags==null].{digest:imageDigest}' > digest_null.txt
+      - name: Clean up image
+        run: bash ./bash-script/clean_up_image.sh --repo ${{vars.ECR_REPOSITORY}} --region ${{vars.AWS_REGION}} --file digest_null.txt
