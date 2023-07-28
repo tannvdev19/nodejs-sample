@@ -9,28 +9,22 @@ resource "aws_instance" "ec2_server" {
     Name = var.ec2_name
   }
 
-  provisioner "local-exec" {
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo yum update -y"
+    ]
+
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      private_key = file("private_key")
+      host        = self.public_ip
+    }
+  }
+  
+   provisioner "local-exec" {
     command    = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ec2-user --key-file private_key -T 600 -i '${self.public_ip},',  ../playbook.yaml"
     on_failure = fail
   }
-
-  # connection {
-  #   type        = "ssh"
-  #   user        = "ec2-user"
-  #   private_key = tls_private_key.rsa.private_key_pem
-  #   host        = self.public_ip
-  # }
-
-  # provisioner "file" {
-  #   source      = "../bash-script/web.sh"
-  #   destination = "/tmp/web.sh"
-  # }
-
-  # provisioner "remote-exec" {
-  #   inline = [
-  #     "chmod +x /tmp/web.sh",
-  #     "/tmp/web.sh",
-  #   ]
-  # }
-
 }
