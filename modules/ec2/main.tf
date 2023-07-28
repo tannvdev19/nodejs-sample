@@ -10,18 +10,18 @@ resource "aws_instance" "ec2_server" {
   }
 
 
-  # provisioner "remote-exec" {
-  #   inline = [
-  #     "sudo yum update -y"
-  #   ]
+  provisioner "remote-exec" {
+    inline = [
+      "sudo yum update -y"
+    ]
 
-  #   connection {
-  #     type        = "ssh"
-  #     user        = "ec2-user"
-  #     private_key = file("private_key")
-  #     host        = self.public_ip
-  #   }
-  # }
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      private_key = file("private_key")
+      host        = self.public_ip
+    }
+  }
   
    provisioner "local-exec" {
     command    = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ec2-user --key-file private_key -T 600 -i '${self.public_ip},',  ../playbook.yaml"
