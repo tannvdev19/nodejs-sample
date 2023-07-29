@@ -1,5 +1,5 @@
 resource "aws_security_group" "allow_ssh_web" {
-  name = "allow_ssh_web"
+  name = "allow_ssh_web_${var.env}}"
   description = "Allow SSH and HTTP from anywhere"
 
     ingress {

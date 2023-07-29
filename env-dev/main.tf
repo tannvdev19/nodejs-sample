@@ -16,6 +16,7 @@ module "dev_ec2" {
   ec2_name="ec2-nodejs-sample-dev"
   ec2_key_name= var.key_name
   ec2_public_key = var.public_key
+  env = "dev"
 }
 
 module "dev_ecr" {

@@ -3,6 +3,11 @@ variable "ec2_name" {
   default = "nodejs-sample"
 }
 
+variable "env"{
+  type = string
+  default = "dev"
+}
+
 variable "ec2_instance_type" {
   type = string
   default = "t2.micro"
