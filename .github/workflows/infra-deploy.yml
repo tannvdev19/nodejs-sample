@@ -44,7 +44,7 @@ jobs:
         run: terraform init
       - name: Terraform plan
         working-directory: ./env-${{env.environment}}
-        run: terraform plan -o ${{env.PLAN_FILE}}
+        run: terraform plan -out ${{env.PLAN_FILE}}
       - name: Upload plan
         uses: actions/upload-artifact@v3
         with:
