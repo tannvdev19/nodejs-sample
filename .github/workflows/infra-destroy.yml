@@ -32,6 +32,11 @@ jobs:
         working-directory: ./env-${{env.environment}}
         run: terraform init
 
+      - name: Get private key
+        run: |
+          echo "${{ secrets.PRIVATE_KEY }}" > ./env-${{env.environment}}/private_key.pem
+          chmod 700 ./env-${{env.environment}}/private_key.pem
+
       - name: Terraform destroy
         working-directory: ./env-${{env.environment}}
         run: terraform destroy -auto-approve
