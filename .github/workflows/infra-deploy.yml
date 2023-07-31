@@ -101,7 +101,7 @@ jobs:
           path: ./env-${{env.environment}}/${{env.PLAN_FILE}}
       - name: Terraform apply
         working-directory: ./env-${{env.environment}}
-        run: terraform apply -input=false ${{env.PLAN_FILE}}
+        run: terraform apply -auto-approve
       - name: Setup output
         id: tf-output
         working-directory: ./env-${{env.environment}}
