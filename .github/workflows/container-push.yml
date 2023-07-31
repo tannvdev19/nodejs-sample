@@ -1,10 +1,10 @@
 name: Push container to ECR | dockerhub
 
 on:
-  push:
-    branches: ["prod", "dev"]
-  pull_request:
-    branches: ["prod", "dev"]
+  # push:
+  #   branches: ["prod", "dev"]
+  # pull_request:
+  #   branches: ["prod", "dev"]
   workflow_dispatch:
 
 permissions: write-all
