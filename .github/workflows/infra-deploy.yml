@@ -53,7 +53,7 @@ jobs:
           then
             echo "SKIP_APPLY=true" >> $GITHUB_OUTPUT
           else
-            echo "SKIP_APPLY=false" >> $GITHUB_OUPUT
+            echo "SKIP_APPLY=false" >> $GITHUB_OUTPUT
           fi
       - name: Upload plan
         uses: actions/upload-artifact@v3
