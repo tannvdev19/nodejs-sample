@@ -45,12 +45,12 @@ jobs:
         run: terraform init
       - name: Terraform plan
         working-directory: ./env-${{env.environment}}
-        run: terraform plan -out ${{env.PLAN_FILE}} | tee tee-${{env.PLAN_FILE}}
+        run: terraform plan -out ${{env.PLAN_FILE}}
       - name: Check for skip apply
         id: verify-apply
         working-directory: ./env-${{env.environment}}
         run: |
-          if grep -q "No changes" tee-${{env.PLAN_FILE}};
+          if grep -q "No changes" ${{env.PLAN_FILE}};
           then
             echo "SKIP_APPLY=true" >> $GITHUB_OUTPUT
           else
