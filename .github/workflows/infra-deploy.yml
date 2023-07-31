@@ -47,14 +47,13 @@ jobs:
         working-directory: ./env-${{env.environment}}
         run: terraform plan -out ${{env.PLAN_FILE}}
       - name: Check for skip apply
+        id: verify-apply
         working-directory: ./env-${{env.environment}}
         run: |
           if grep -q "No changes" tf-plan;
           then
-            echo "SKIP_APPLY=true"
             echo "SKIP_APPLY=true" >> $GITHUB_OUTPUT
           else
-            echo "SKIP_APPLY=false"
             echo "SKIP_APPLY=false" >> $GITHUB_OUTPUT
           fi
       - name: Upload plan
@@ -63,7 +62,7 @@ jobs:
           name: ${{env.PLAN_FILE}}
           path: ./env-${{env.environment}}/${{env.PLAN_FILE}}
     outputs:
-      SKIP_APPLY: ${{ steps.tf-output.outputs.SKIP_APPLY }}
+      SKIP_APPLY: ${{ steps.verify-apply.outputs.SKIP_APPLY }}
   infra-apply:
     name: Infra apply
     runs-on: ubuntu-latest
