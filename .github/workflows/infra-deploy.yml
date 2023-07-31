@@ -61,6 +61,8 @@ jobs:
         with:
           name: ${{env.PLAN_FILE}}
           path: ./env-${{env.environment}}/${{env.PLAN_FILE}}
+      - name: Print output
+        run: echo "SKIP_APPLY=${{ steps.verify-apply.outputs.SKIP_APPLY }}"
     outputs:
       SKIP_APPLY: ${{ steps.verify-apply.outputs.SKIP_APPLY }}
   infra-apply:
