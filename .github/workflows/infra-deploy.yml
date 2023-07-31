@@ -75,6 +75,8 @@ jobs:
       environment: ${{ github.event.inputs.choice-branch }}
       PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
     steps:
+      - name: Print apply
+        run: echo "Print SKIP_APPLY=${{ needs.infra-plan.outputs.SKIP_APPLY }}"
       - name: Checkout code
         uses: actions/checkout@v3
         with:
