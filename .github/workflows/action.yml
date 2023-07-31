@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - try-action
+  workflow_dispatch:
 
 permissions: write-all
 
